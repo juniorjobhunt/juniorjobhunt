@@ -550,7 +550,7 @@
   .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
   .hero-card { animation: fadeUp 0.7s 0.35s ease both; }
 </style>
-<link rel="stylesheet" href="trust-section-fix.css">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -954,14 +954,7 @@
 </footer>
 
 
-  // Chip toggle interaction
-  document.querySelectorAll('.chip').forEach(chip => {
-    chip.addEventListener('click', () => {
-      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
-      chip.classList.add('active');
-    });
-  });
-</script>
+<script src="scripts.js" defer></script>
 
 <!-- MODAL OVERLAY -->
 <div id="modal-overlay" onclick="closeModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;backdrop-filter:blur(4px);transition:opacity 0.2s;"></div>
