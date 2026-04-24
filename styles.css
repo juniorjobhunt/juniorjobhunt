@@ -347,7 +347,7 @@ footer {
   display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
   gap: 48px; margin-bottom: 48px;
 }
-.footer-brand .nav-logo { margin-bottom: 14px; }
+.footer-brand .nav-logo { margin-bottom: 14px; color: var(--white); }
 .footer-brand p { font-size: 0.88rem; line-height: 1.7; max-width: 280px; }
 .footer-col h5 {
   font-family: 'Sora', sans-serif;
