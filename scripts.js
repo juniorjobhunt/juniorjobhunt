@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 
-// --- Airtable Config ---
-const AT_TOKEN = "patc4IbYyYxb4vFzY.5fd07097721b8b21e80b995facf939ed63beb4bfc4000151cb7da19135886f6b";
-const AT_BASE = "appHiRMS2ewkTSIYd";
+// --- Worker URLs (token is stored securely in Cloudflare, not here) ---
+const WORKER_TASKER = "https://jjh-tasker-form.juniorjobhunt.workers.dev";
+const WORKER_CUSTOMER = "https://jjh-customer-form.juniorjobhunt.workers.dev";
 
 // --- Modal Controls ---
 function openModal(type) {
@@ -88,9 +88,9 @@ async function submitTasker(e) {
     "Date Submitted": new Date().toISOString().split('T')[0]
   };
   try {
-    var res = await fetch('https://api.airtable.com/v0/' + AT_BASE + '/Taskers', {
+    var res = await fetch(WORKER_TASKER, {
       method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + AT_TOKEN, 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ fields: fields })
     });
     var result = await res.json();
@@ -135,9 +135,9 @@ async function submitCustomer(e) {
     "Date Submitted": new Date().toISOString().split('T')[0]
   };
   try {
-    var res = await fetch('https://api.airtable.com/v0/' + AT_BASE + '/Customers', {
+    var res = await fetch(WORKER_CUSTOMER, {
       method: 'POST',
-      headers: { 'Authorization': 'Bearer ' + AT_TOKEN, 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ fields: fields })
     });
     var result = await res.json();
