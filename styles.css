@@ -231,6 +231,7 @@ section { padding: 80px 5%; }
 /* TRUST SECTION — updated layout: centered 2×2 grid */
 .trust-section {
   background: var(--navy);
+  display: block;
   text-align: center;
 }
 .trust-section .section-title { color: var(--white); }
