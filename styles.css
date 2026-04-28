@@ -228,7 +228,7 @@ section { padding: 80px 5%; }
 .view-all { color: var(--mint); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
 .view-all:hover { text-decoration: underline; }
 
-/* TRUST SECTION — updated layout: centered 2×2 grid */
+/* TRUST SECTION — redesigned card layout */
 .trust-section {
   background: var(--navy);
   display: block;
@@ -237,23 +237,39 @@ section { padding: 80px 5%; }
 .trust-section .section-title { color: var(--white); }
 .trust-section .section-sub {
   color: rgba(255,255,255,0.55);
-  max-width: 640px;
+  max-width: 600px;
   margin-left: auto; margin-right: auto;
 }
 .trust-list {
-  margin-top: 48px;
-  display: grid; grid-template-columns: 1fr 1fr; gap: 36px;
-  max-width: 900px; margin-left: auto; margin-right: auto;
+  margin-top: 48px !important;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 24px !important;
+  max-width: 960px;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
-.trust-item { display: flex; gap: 18px; align-items: flex-start; text-align: left; }
+.trust-item {
+  display: flex !important;
+  flex-direction: column;
+  gap: 0;
+  text-align: left;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  padding: 32px;
+  transition: border-color 0.2s;
+}
+.trust-item:hover { border-color: rgba(23,195,240,0.35); }
 .trust-icon {
-  width: 48px; height: 48px; border-radius: 12px;
+  width: 52px; height: 52px; border-radius: 14px;
   background: rgba(23,195,240,0.15);
   display: flex; align-items: center; justify-content: center;
-  font-size: 1.3rem; flex-shrink: 0;
+  font-size: 1.4rem; flex-shrink: 0;
+  margin-bottom: 20px;
 }
-.trust-item h4 { font-family: 'Sora', sans-serif; font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 4px; }
-.trust-item p { color: rgba(255,255,255,0.5); font-size: 0.88rem; line-height: 1.6; }
+.trust-item h4 { font-family: 'Sora', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
+.trust-item p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.65; }
 .trust-img-block {
   background: var(--navy-mid);
   border-radius: var(--radius);
