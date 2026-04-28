@@ -270,29 +270,38 @@ section { padding: 80px 5%; }
 }
 .trust-item h4 { font-family: 'Sora', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--white); margin-bottom: 10px; }
 .trust-item p { color: rgba(255,255,255,0.6); font-size: 0.9rem; line-height: 1.65; }
-.trust-img-block {
-  background: var(--navy-mid);
-  border-radius: var(--radius);
-  padding: 40px;
-  display: grid; grid-template-columns: 1fr 2fr; gap: 32px; align-items: center;
-  max-width: 900px; margin: 48px auto 0;
+.trust-bottom {
+  max-width: 960px;
+  margin: 48px auto 0;
 }
-.pledge-badge {
-  background: rgba(23,195,240,0.12);
-  border: 1px solid rgba(23,195,240,0.25);
-  border-radius: 12px; padding: 24px;
-  text-align: center;
+.trust-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
 }
-.pledge-badge .big-icon { font-size: 2.5rem; margin-bottom: 12px; }
-.pledge-badge h3 { font-family: 'Sora', sans-serif; color: var(--white); font-size: 1.1rem; margin-bottom: 6px; }
-.pledge-badge p { color: rgba(255,255,255,0.5); font-size: 0.84rem; }
-.mini-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.mini-stat {
+.trust-stat {
   background: rgba(255,255,255,0.05);
-  border-radius: 12px; padding: 18px; text-align: center;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 28px 16px;
+  text-align: center;
+  transition: border-color 0.2s;
 }
-.mini-stat .n { font-family: 'Sora', sans-serif; color: var(--white); font-size: 1.4rem; font-weight: 800; }
-.mini-stat .l { color: rgba(255,255,255,0.4); font-size: 0.78rem; margin-top: 2px; }
+.trust-stat:hover { border-color: rgba(23,195,240,0.3); }
+.trust-stat .n { font-family: 'Sora', sans-serif; color: var(--white); font-size: 1.5rem; font-weight: 800; }
+.trust-stat .l { color: rgba(255,255,255,0.45); font-size: 0.8rem; margin-top: 6px; }
+.happiness-pledge {
+  text-align: center;
+  padding: 20px 32px;
+  background: rgba(23,195,240,0.07);
+  border: 1px solid rgba(23,195,240,0.18);
+  border-radius: 14px;
+  color: rgba(255,255,255,0.65);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.happiness-pledge strong { color: var(--mint); }
 
 /* TESTIMONIALS */
 .testimonials { background: var(--white); }
