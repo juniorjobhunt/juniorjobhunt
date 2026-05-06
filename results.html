@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Real Results – Junior Job Hunt</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><img src="images/img-0.png" alt="Junior Job Hunt" style="height:44px;width:44px;border-radius:10px;"> Junior<span>Job</span>Hunt</a>
+  <div class="nav-links">
+    <a href="why.html">Why JJH</a>
+    <a href="results.html">Real Results</a>
+    <a href="story.html">Where It Started</a>
+    <a href="recognition.html">Recognition</a>
+    <a href="https://www.sandiego.edu/news/detail.php?_focus=91272" target="_blank">Our Project</a>
+  </div>
+  <div class="nav-ctas">
+    <a href="#" class="btn btn-outline" onclick="openModal('tasker');return false;">Become a Tasker</a>
+    <a href="#" class="btn btn-primary" onclick="openModal('customer');return false;">Hire a Tasker</a>
+  </div>
+</nav>
+
+<section class="testimonials">
+  <div class="section-label">Real Results</div>
+  <div class="section-title">What our community is saying</div>
+  <p class="section-sub" style="margin-bottom:52px;">Don't just take our word for it — here's a real project completed by one of our Taskers.</p>
+  <div class="featured-review">
+    <div class="featured-review-left">
+      <div class="stars" style="font-size:1.1rem;letter-spacing:3px;margin-bottom:20px;">★★★★★</div>
+      <blockquote>"Junior Job Hunt connected me with Ethan who took on a creative project of transforming my slope into a garden area. Work in progress. I have confidence in his ability to make it happen. Thank you Ethan!"</blockquote>
+      <div class="reviewer" style="margin-top:28px;">
+        <div class="avatar">B</div>
+        <div class="reviewer-info"><strong>Becky</strong><span>Yard & Garden Transformation · Clairemont, San Diego</span></div>
+      </div>
+      <div class="review-badge">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#17C3F0" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Verified Junior Job Hunt Task
+      </div>
+    </div>
+    <div class="before-after">
+      <div class="ba-card"><div class="ba-label ba-before">BEFORE</div><img src="images/img-1.png" alt="Before — overgrown slope yard" /></div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-card"><div class="ba-label ba-after">AFTER</div><img src="images/img-2.png" alt="After — cleared and transformed garden area with lights" /></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="nav-logo"><img src="images/img-10.png" alt="Junior Job Hunt" style="height:44px;width:44px;border-radius:10px;"> Junior<span style="color:var(--mint)">Job</span>Hunt</a>
+      <p>Bringing back the power of the kid next door. A community-driven platform connecting San Diego youth with neighbors who need a helping hand.</p>
+    </div>
+    <div class="footer-col">
+      <h5>For Customers</h5>
+      <ul>
+        <li><a href="#" onclick="openModal('customer');return false;">Hire a Tasker</a></li>
+        <li><a href="#" onclick="openModal('customer');return false;">Specific Task Request</a></li>
+        <li><a href="index.html#how">How It Works</a></li>
+        <li><a href="index.html#tasks">Browse Services</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>For Taskers</h5>
+      <ul>
+        <li><a href="#" onclick="openModal('tasker');return false;">Become a Tasker</a></li>
+        <li><a href="why.html">Why Join?</a></li>
+        <li><a href="https://www.sandiego.edu/news/detail.php?_focus=91272" target="_blank">Our Project</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul>
+        <li><a href="why.html">About Us</a></li>
+        <li><a href="mailto:juniorjobhunt@gmail.com">Contact</a></li>
+        <li><a href="https://www.sandiego.edu/news/detail.php?_focus=91272" target="_blank">Press</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2024 Junior Job Hunt · All Rights Reserved · San Diego, CA</span>
+  </div>
+</footer>
+
+<script src="scripts.js" defer></script>
+
+<!-- MODAL OVERLAY -->
+<div id="modal-overlay" onclick="closeModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;backdrop-filter:blur(4px);transition:opacity 0.2s;"></div>
+
+<!-- BECOME A TASKER MODAL -->
+<div id="modal-tasker" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1000;width:min(580px,95vw);max-height:90vh;overflow-y:auto;background:#fff;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,0.25);">
+  <div style="background:#0d1b2a;padding:28px 32px 22px;border-radius:20px 20px 0 0;position:sticky;top:0;z-index:1;">
+    <button onclick="closeModal()" style="position:absolute;top:18px;right:18px;background:rgba(255,255,255,0.12);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;line-height:1;">✕</button>
+    <div style="font-size:0.75rem;letter-spacing:0.1em;font-weight:700;color:#17C3F0;text-transform:uppercase;margin-bottom:6px;">Join the Team</div>
+    <h2 style="font-family:'Sora',sans-serif;color:#fff;font-size:1.5rem;font-weight:800;margin:0;">Become a Tasker</h2>
+    <p style="color:rgba(255,255,255,0.5);font-size:0.88rem;margin-top:6px;">Fill in your info and we'll reach out when a task matches your skills.</p>
+  </div>
+  <form id="form-tasker" onsubmit="submitTasker(event)" style="padding:28px 32px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="display:flex;flex-direction:column;gap:5px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Full Name *</label><input name="Full Name" required placeholder="Your full name" style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></div>
+      <div style="display:flex;flex-direction:column;gap:5px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Age *</label><input name="Age" type="number" min="13" max="25" required placeholder="Your age" style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></div>
+      <div style="display:flex;flex-direction:column;gap:5px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Email *</label><input name="Email" type="email" required placeholder="your@email.com" style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></div>
+      <div style="display:flex;flex-direction:column;gap:5px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Phone Number *</label><input name="Phone Number" type="tel" required placeholder="(619) 555-0000" style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px;margin-top:14px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">School Name *</label><input name="School Name" required placeholder="e.g. University of San Diego" style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></div>
+    <div style="display:flex;flex-direction:column;gap:5px;margin-top:14px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Neighborhood / City *</label><input name="Neighborhood/City" required placeholder="e.g. Mission Hills, San Diego" style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Skills * <span style="font-weight:400;color:#6b7a8d;">(tap all that apply)</span></label>
+      <div id="t-skills" style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span onclick="toggleChip(this,'t-skills')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Yard Work">🌿 Yard Work</span>
+        <span onclick="toggleChip(this,'t-skills')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Cleaning">🧹 Cleaning</span>
+        <span onclick="toggleChip(this,'t-skills')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Pet Care">🐾 Pet Care</span>
+        <span onclick="toggleChip(this,'t-skills')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Moving Help">📦 Moving Help</span>
+        <span onclick="toggleChip(this,'t-skills')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Errands">🛒 Errands</span>
+        <span onclick="toggleChip(this,'t-skills')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Car Wash">🚗 Car Wash</span>
+        <span onclick="toggleChip(this,'t-skills')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Tutoring">📚 Tutoring</span>
+        <span onclick="toggleChip(this,'t-skills')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="General Help">🔧 General Help</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Availability * <span style="font-weight:400;color:#6b7a8d;">(tap all that apply)</span></label>
+      <div id="t-avail" style="display:flex;gap:8px;flex-wrap:wrap;">
+        <span onclick="toggleChip(this,'t-avail')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Weekdays">Weekdays</span>
+        <span onclick="toggleChip(this,'t-avail')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Weekends">Weekends</span>
+        <span onclick="toggleChip(this,'t-avail')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Evenings">Evenings</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px;margin-top:14px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Short Bio <span style="font-weight:400;color:#6b7a8d;">(optional)</span></label><textarea name="Short Bio" rows="3" placeholder="Tell customers a bit about yourself..." style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;resize:vertical;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></textarea></div>
+    <div id="msg-tasker" style="display:none;margin-top:14px;padding:13px 16px;border-radius:10px;font-size:0.88rem;font-weight:600;"></div>
+    <button type="submit" id="btn-tasker" style="margin-top:20px;width:100%;padding:15px;background:#17C3F0;color:#fff;border:none;border-radius:50px;font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;">Submit Application →</button>
+  </form>
+</div>
+
+<!-- HIRE A TASKER MODAL -->
+<div id="modal-customer" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1000;width:min(580px,95vw);max-height:90vh;overflow-y:auto;background:#fff;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,0.25);">
+  <div style="background:#0d1b2a;padding:28px 32px 22px;border-radius:20px 20px 0 0;position:sticky;top:0;z-index:1;">
+    <button onclick="closeModal()" style="position:absolute;top:18px;right:18px;background:rgba(255,255,255,0.12);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;line-height:1;">✕</button>
+    <div style="font-size:0.75rem;letter-spacing:0.1em;font-weight:700;color:#17C3F0;text-transform:uppercase;margin-bottom:6px;">Get Help Today</div>
+    <h2 style="font-family:'Sora',sans-serif;color:#fff;font-size:1.5rem;font-weight:800;margin:0;">Hire a Tasker</h2>
+    <p style="color:rgba(255,255,255,0.5);font-size:0.88rem;margin-top:6px;">Tell us what you need and we'll match you with the perfect local Tasker.</p>
+  </div>
+  <form id="form-customer" onsubmit="submitCustomer(event)" style="padding:28px 32px;">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+      <div style="display:flex;flex-direction:column;gap:5px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Full Name *</label><input name="Full Name" required placeholder="Your full name" style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></div>
+      <div style="display:flex;flex-direction:column;gap:5px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Phone Number *</label><input name="Phone Number" type="tel" required placeholder="(619) 555-0000" style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px;margin-top:14px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Email *</label><input name="Email" type="email" required placeholder="your@email.com" style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></div>
+    <div style="display:flex;flex-direction:column;gap:5px;margin-top:14px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Neighborhood / City *</label><input name="Neighborhood/City" required placeholder="e.g. La Jolla, San Diego" style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:14px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Task Type * <span style="font-weight:400;color:#6b7a8d;">(tap all that apply)</span></label>
+      <div id="c-tasks" style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span onclick="toggleChip(this,'c-tasks')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Yard Work">🌿 Yard Work</span>
+        <span onclick="toggleChip(this,'c-tasks')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Cleaning">🧹 Cleaning</span>
+        <span onclick="toggleChip(this,'c-tasks')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Pet Care">🐾 Pet Care</span>
+        <span onclick="toggleChip(this,'c-tasks')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Moving Help">📦 Moving Help</span>
+        <span onclick="toggleChip(this,'c-tasks')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Errands">🛒 Errands</span>
+        <span onclick="toggleChip(this,'c-tasks')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Car Wash">🚗 Car Wash</span>
+        <span onclick="toggleChip(this,'c-tasks')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="Tutoring">📚 Tutoring</span>
+        <span onclick="toggleChip(this,'c-tasks')" style="padding:7px 15px;border-radius:50px;background:#f4f6f8;font-size:0.83rem;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all 0.15s;" data-val="General Help">🔧 General Help</span>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:5px;margin-top:14px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Task Description *</label><textarea name="Task Description" rows="3" required placeholder="Describe what you need help with in detail..." style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;resize:vertical;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></textarea></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;">
+      <div style="display:flex;flex-direction:column;gap:5px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Preferred Date</label><input name="Preferred Date" type="date" style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"></div>
+      <div style="display:flex;flex-direction:column;gap:5px;"><label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Urgency *</label><select name="Urgency" required style="padding:11px 14px;border:1.5px solid #e2e8f0;border-radius:10px;font-size:0.92rem;font-family:'DM Sans',sans-serif;outline:none;background:#fff;" onfocus="this.style.borderColor='#17C3F0'" onblur="this.style.borderColor='#e2e8f0'"><option value="">Select...</option><option>Flexible</option><option>Within a Week</option><option>ASAP</option></select></div>
+    </div>
+    <div id="msg-customer" style="display:none;margin-top:14px;padding:13px 16px;border-radius:10px;font-size:0.88rem;font-weight:600;"></div>
+    <button type="submit" id="btn-customer" style="margin-top:20px;width:100%;padding:15px;background:#17C3F0;color:#fff;border:none;border-radius:50px;font-family:'Sora',sans-serif;font-size:1rem;font-weight:700;cursor:pointer;">Find Me a Tasker →</button>
+  </form>
+</div>
+
+</body>
+</html>
