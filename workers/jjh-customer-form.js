@@ -45,7 +45,7 @@ export default {
     // 2. Search for an available tasker in the same city
     const formula = encodeURIComponent(`AND({Neighborhood/City}="${city}",{Status}="New")`);
     const taskerRes = await fetch(
-      `https://api.airtable.com/v0/${env.AT_BASE}/Taskers?filterByFormula=${formula}&maxRecords=1`,
+      `https://api.airtable.com/v0/${env.AT_BASE}/Taskers?filterByFormula=${formula}&maxRecords=50`,
       { headers: { 'Authorization': `Bearer ${env.AT_TOKEN}` } }
     );
     const taskerData = await taskerRes.json();
@@ -81,7 +81,13 @@ export default {
       });
     }
 
-    const tasker = taskers[0];
+    // Prefer a tasker whose Skills overlap the customer's Task Category; fall back to first available in the city
+    const wantedCats = Array.isArray(cf['Task Category']) ? cf['Task Category'] : (cf['Task Category'] ? [cf['Task Category']] : []);
+    const skillMatch = taskers.find(t => {
+      const skills = t.fields['Skills'] || [];
+      return Array.isArray(skills) && skills.some(s => wantedCats.includes(s));
+    });
+    const tasker = skillMatch || taskers[0];
     const taskerId = tasker.id;
     const tf = tasker.fields;
 
