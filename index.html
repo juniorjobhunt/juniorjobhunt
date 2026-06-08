@@ -1196,7 +1196,7 @@ async function submitCustomer(e) {
     });
     var result = await res.json();
     if (res.ok) {
-      showMsg('msg-customer','✅ Request received! We'll match you with a Tasker shortly.', true);
+      showMsg('msg-customer','✅ Request received! We\'ll match you with a Tasker shortly.', true);
       form.reset();
       document.querySelectorAll('#c-tasks span').forEach(function(el) {
         el.setAttribute('data-active','0');
