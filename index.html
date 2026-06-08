@@ -551,8 +551,174 @@
   .hero-card { animation: fadeUp 0.7s 0.35s ease both; }
 </style>
 <link rel="stylesheet" href="styles.css">
+<style>
+  /* ── WAITLIST BANNER ── */
+  .waitlist-banner {
+    background: linear-gradient(90deg, var(--navy) 0%, #0f2a42 100%);
+    border-bottom: 2px solid var(--mint);
+    padding: 12px 5%;
+    display: flex; align-items: center; justify-content: center; gap: 16px;
+    position: relative; z-index: 101;
+  }
+  .waitlist-banner p {
+    color: rgba(255,255,255,0.9);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem; font-weight: 500;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .waitlist-banner p strong { color: var(--mint); }
+  .waitlist-banner .btn-waitlist {
+    background: var(--mint); color: var(--navy);
+    font-family: 'Sora', sans-serif; font-weight: 700;
+    font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 8px 20px; border-radius: 50px; border: none;
+    cursor: pointer; white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
+    flex-shrink: 0;
+  }
+  .waitlist-banner .btn-waitlist:hover { background: #fff; transform: translateY(-1px); }
+  .waitlist-banner .banner-close {
+    position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+    background: none; border: none; color: rgba(255,255,255,0.45);
+    font-size: 1.2rem; cursor: pointer; line-height: 1;
+    transition: color 0.2s;
+  }
+  .waitlist-banner .banner-close:hover { color: var(--white); }
+
+  /* ── WAITLIST MODAL ── */
+  .wl-overlay {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: rgba(13,27,42,0.75); backdrop-filter: blur(4px);
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .wl-overlay.open { display: flex; }
+  .wl-modal {
+    background: var(--white); border-radius: 20px;
+    padding: 40px 36px; width: 100%; max-width: 480px;
+    position: relative; box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+    animation: wlFadeIn 0.25s ease;
+  }
+  @keyframes wlFadeIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .wl-modal .wl-close {
+    position: absolute; top: 16px; right: 20px;
+    background: none; border: none; font-size: 1.4rem;
+    color: var(--gray); cursor: pointer; line-height: 1;
+  }
+  .wl-modal .wl-close:hover { color: var(--navy); }
+  .wl-modal .wl-badge {
+    display: inline-block; background: var(--mint-light); color: var(--mint-dark);
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em;
+    text-transform: uppercase; padding: 4px 12px; border-radius: 50px;
+    margin-bottom: 14px;
+  }
+  .wl-modal h2 {
+    font-family: 'Sora', sans-serif; font-size: 1.6rem;
+    font-weight: 800; color: var(--navy); margin-bottom: 6px;
+  }
+  .wl-modal .wl-sub {
+    color: var(--gray); font-size: 0.92rem; margin-bottom: 28px; line-height: 1.5;
+  }
+  .wl-form { display: flex; flex-direction: column; gap: 14px; }
+  .wl-form label {
+    font-size: 0.82rem; font-weight: 600; color: var(--navy);
+    margin-bottom: 4px; display: block;
+  }
+  .wl-form input {
+    width: 100%; padding: 12px 16px;
+    border: 1.5px solid #dde2e8; border-radius: 10px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--navy);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none; background: var(--white);
+  }
+  .wl-form input:focus {
+    border-color: var(--mint);
+    box-shadow: 0 0 0 3px rgba(23,195,240,0.15);
+  }
+  .wl-form input.error { border-color: #e05050; }
+  .wl-honeypot { display: none; }
+  .wl-submit {
+    margin-top: 6px; width: 100%;
+    background: var(--mint); color: var(--navy);
+    font-family: 'Sora', sans-serif; font-weight: 700;
+    font-size: 0.95rem; padding: 14px;
+    border: none; border-radius: 50px; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .wl-submit:hover { background: var(--mint-dark); color: var(--white); transform: translateY(-1px); }
+  .wl-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+  .wl-error {
+    color: #c0392b; font-size: 0.84rem; margin-top: 4px;
+    display: none;
+  }
+  .wl-error.show { display: block; }
+  .wl-success { text-align: center; padding: 20px 0; }
+  .wl-success .wl-check { font-size: 2.8rem; margin-bottom: 14px; }
+  .wl-success h3 {
+    font-family: 'Sora', sans-serif; font-size: 1.3rem;
+    font-weight: 800; color: var(--navy); margin-bottom: 8px;
+  }
+  .wl-success p { color: var(--gray); font-size: 0.92rem; line-height: 1.6; }
+
+  @media (max-width: 600px) {
+    .waitlist-banner { flex-wrap: wrap; gap: 10px; padding-right: 44px; }
+    .waitlist-banner p { font-size: 0.84rem; }
+    .wl-modal { padding: 32px 22px; }
+  }
+</style>
 </head>
 <body>
+
+<!-- WAITLIST BANNER -->
+<div class="waitlist-banner" id="waitlistBanner">
+  <p>🚀 <strong>Now accepting early members</strong> — be the first in your neighborhood.</p>
+  <button class="btn-waitlist" onclick="openWaitlist()">Join the Waitlist</button>
+  <button class="banner-close" onclick="dismissBanner()" aria-label="Dismiss">✕</button>
+</div>
+
+<!-- WAITLIST MODAL -->
+<div class="wl-overlay" id="wlOverlay" onclick="closeWaitlistOnBackdrop(event)">
+  <div class="wl-modal" role="dialog" aria-modal="true" aria-labelledby="wlTitle">
+    <button class="wl-close" onclick="closeWaitlist()" aria-label="Close">✕</button>
+    <div id="wlFormView">
+      <div class="wl-badge">Early Access</div>
+      <h2 id="wlTitle">Join the Waitlist</h2>
+      <p class="wl-sub">Be the first to know when JuniorJobHunt launches in your area. No spam — ever.</p>
+      <form class="wl-form" id="wlForm" onsubmit="submitWaitlist(event)">
+        <div>
+          <label for="wlName">Full Name</label>
+          <input type="text" id="wlName" name="fullName" placeholder="Jane Smith" autocomplete="name" required>
+        </div>
+        <div>
+          <label for="wlEmail">Email</label>
+          <input type="email" id="wlEmail" name="email" placeholder="jane@example.com" autocomplete="email" required>
+        </div>
+        <div>
+          <label for="wlPhone">Phone Number</label>
+          <input type="tel" id="wlPhone" name="phone" placeholder="(555) 000-0000" autocomplete="tel" required>
+        </div>
+        <div>
+          <label for="wlCity">City</label>
+          <input type="text" id="wlCity" name="city" placeholder="San Diego" autocomplete="address-level2" required>
+        </div>
+        <!-- Honeypot — hidden from real users, filled by bots -->
+        <div class="wl-honeypot" aria-hidden="true">
+          <input type="text" name="website" tabindex="-1" autocomplete="off">
+          <input type="text" name="address" tabindex="-1" autocomplete="off">
+        </div>
+        <p class="wl-error" id="wlError"></p>
+        <button type="submit" class="wl-submit" id="wlSubmit">Reserve My Spot →</button>
+      </form>
+    </div>
+    <div class="wl-success" id="wlSuccess" style="display:none;">
+      <div class="wl-check">🎉</div>
+      <h3>You're on the list!</h3>
+      <p>Thanks for joining. We'll reach out as soon as JuniorJobHunt is live in your area.</p>
+    </div>
+  </div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -1046,6 +1212,85 @@ async function submitCustomer(e) {
     btn.textContent = 'Find Me a Tasker →'; btn.disabled = false;
   }
 }
+
+// ── WAITLIST ──
+const WAITLIST_WORKER = 'https://jjh-waitlist-form.juniorjobhunt.workers.dev';
+
+function openWaitlist() {
+  document.getElementById('wlOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('wlFormView').style.display = '';
+  document.getElementById('wlSuccess').style.display = 'none';
+  document.getElementById('wlError').classList.remove('show');
+  document.getElementById('wlForm').reset();
+}
+
+function closeWaitlist() {
+  document.getElementById('wlOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeWaitlistOnBackdrop(e) {
+  if (e.target === document.getElementById('wlOverlay')) closeWaitlist();
+}
+
+function dismissBanner() {
+  var banner = document.getElementById('waitlistBanner');
+  banner.style.display = 'none';
+  try { sessionStorage.setItem('wl_banner_dismissed', '1'); } catch(e) {}
+}
+
+async function submitWaitlist(e) {
+  e.preventDefault();
+  var btn = document.getElementById('wlSubmit');
+  var errEl = document.getElementById('wlError');
+  errEl.classList.remove('show');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+
+  var payload = {
+    fullName: document.getElementById('wlName').value,
+    email:    document.getElementById('wlEmail').value,
+    phone:    document.getElementById('wlPhone').value,
+    city:     document.getElementById('wlCity').value,
+    website:  document.querySelector('[name="website"]').value,
+    address:  document.querySelector('[name="address"]').value,
+  };
+
+  try {
+    var res = await fetch(WAITLIST_WORKER, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    var data = await res.json();
+    if (data.success) {
+      document.getElementById('wlFormView').style.display = 'none';
+      document.getElementById('wlSuccess').style.display = '';
+      dismissBanner();
+    } else {
+      errEl.textContent = data.error || 'Something went wrong. Please try again.';
+      errEl.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Reserve My Spot →';
+    }
+  } catch(err) {
+    errEl.textContent = 'Network error — please check your connection and try again.';
+    errEl.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Reserve My Spot →';
+  }
+}
+
+// Hide banner if already dismissed this session
+(function() {
+  try { if (sessionStorage.getItem('wl_banner_dismissed')) document.getElementById('waitlistBanner').style.display = 'none'; } catch(e) {}
+})();
+
+// Close waitlist modal on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeWaitlist();
+});
 
 function openModalWithCategory(category) {
   openModal('customer');
