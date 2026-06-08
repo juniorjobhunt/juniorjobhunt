@@ -1150,7 +1150,7 @@ async function submitTasker(e) {
     });
     var result = await res.json();
     if (res.ok) {
-      showMsg('msg-tasker','🎉 Application submitted! We'll be in touch soon.', true);
+      showMsg('msg-tasker','🎉 Application submitted! We\'ll be in touch soon.', true);
       form.reset();
       document.querySelectorAll('#t-skills span, #t-avail span').forEach(function(el) {
         el.setAttribute('data-active','0');
