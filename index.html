@@ -1298,4 +1298,12 @@ function openModalWithCategory(category) {
   setTimeout(function() {
     var chips = document.querySelectorAll('#c-tasks span');
     chips.forEach(function(chip) {
-      if (chip.getAttribute(
+      if (chip.getAttribute('data-val') === category) {
+        chip.click();
+      }
+    });
+  }, 100);
+}
+</script>
+</body>
+</html>
