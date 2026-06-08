@@ -171,3 +171,82 @@ function openModalWithCategory(category) {
     });
   }, 100);
 }
+
+// ── WAITLIST ──
+const WAITLIST_WORKER = 'https://jjh-waitlist-form.juniorjobhunt.workers.dev';
+
+function openWaitlist() {
+  document.getElementById('wlOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('wlFormView').style.display = '';
+  document.getElementById('wlSuccess').style.display = 'none';
+  document.getElementById('wlError').classList.remove('show');
+  document.getElementById('wlForm').reset();
+}
+
+function closeWaitlist() {
+  document.getElementById('wlOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeWaitlistOnBackdrop(e) {
+  if (e.target === document.getElementById('wlOverlay')) closeWaitlist();
+}
+
+function dismissBanner() {
+  var banner = document.getElementById('waitlistBanner');
+  banner.style.display = 'none';
+  try { sessionStorage.setItem('wl_banner_dismissed', '1'); } catch(e) {}
+}
+
+async function submitWaitlist(e) {
+  e.preventDefault();
+  var btn = document.getElementById('wlSubmit');
+  var errEl = document.getElementById('wlError');
+  errEl.classList.remove('show');
+  btn.disabled = true;
+  btn.textContent = 'Submitting…';
+
+  var payload = {
+    fullName: document.getElementById('wlName').value,
+    email:    document.getElementById('wlEmail').value,
+    phone:    document.getElementById('wlPhone').value,
+    city:     document.getElementById('wlCity').value,
+    website:  document.querySelector('[name="website"]').value,
+    address:  document.querySelector('[name="address"]').value,
+  };
+
+  try {
+    var res = await fetch(WAITLIST_WORKER, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    var data = await res.json();
+    if (data.success) {
+      document.getElementById('wlFormView').style.display = 'none';
+      document.getElementById('wlSuccess').style.display = '';
+      dismissBanner();
+    } else {
+      errEl.textContent = data.error || 'Something went wrong. Please try again.';
+      errEl.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Reserve My Spot →';
+    }
+  } catch(err) {
+    errEl.textContent = 'Network error — please check your connection and try again.';
+    errEl.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Reserve My Spot →';
+  }
+}
+
+// Hide banner if already dismissed this session
+(function() {
+  try { if (sessionStorage.getItem('wl_banner_dismissed')) document.getElementById('waitlistBanner').style.display = 'none'; } catch(e) {}
+})();
+
+// Close waitlist modal on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeWaitlist();
+});
