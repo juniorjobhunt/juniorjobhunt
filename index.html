@@ -550,7 +550,7 @@
   .hero-content > *:nth-child(5) { animation-delay: 0.5s; }
   .hero-card { animation: fadeUp 0.7s 0.35s ease both; }
 </style>
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="styles.css?v=2">
 <style>
   /* ── WAITLIST BANNER ── */
   .waitlist-banner {
@@ -666,6 +666,9 @@
     .waitlist-banner { flex-wrap: wrap; gap: 10px; padding-right: 44px; }
     .waitlist-banner p { font-size: 0.84rem; }
     .wl-modal { padding: 32px 22px; }
+    /* Mobile nav: show only the primary CTA so the logo + buttons don't overlap.
+       Kept inline (not just in styles.css) so it can't be defeated by stylesheet caching. */
+    .nav-ctas .btn-outline { display: none; }
   }
 </style>
 </head>
