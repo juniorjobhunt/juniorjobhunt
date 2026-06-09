@@ -594,6 +594,10 @@ html, body {
   .trust-img-block { max-width: 100%; }
   .featured-review { padding: 24px; }
   .hero-stats { flex-wrap: wrap; gap: 16px; }
+  /* Mobile nav: keep only the primary CTA so the logo + buttons don't overlap */
+  .nav-ctas .btn-outline { display: none; }
+}
+
 /* ANIMATIONS */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(24px); }
