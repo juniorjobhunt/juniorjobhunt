@@ -1,0 +1,13 @@
+{
+  "name": "Junior Job Hunt",
+  "short_name": "Junior Job Hunt",
+  "description": "Connecting San Diego neighbors with local student Taskers for everyday help.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0d1b2a",
+  "theme_color": "#0d1b2a",
+  "icons": [
+    { "src": "/images/img-0.png", "sizes": "any", "type": "image/png", "purpose": "any" }
+  ]
+}
