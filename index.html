@@ -943,11 +943,11 @@
 <div id="modal-overlay" onclick="closeModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;backdrop-filter:blur(4px);transition:opacity 0.2s;"></div>
 
 <!-- BECOME A TASKER MODAL -->
-<div id="modal-tasker" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1000;width:min(580px,95vw);max-height:90vh;overflow-y:auto;background:#fff;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,0.25);">
+<div id="modal-tasker" role="dialog" aria-modal="true" aria-labelledby="modal-tasker-title" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1000;width:min(580px,95vw);max-height:90vh;overflow-y:auto;background:#fff;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,0.25);">
   <div style="background:#0d1b2a;padding:28px 32px 22px;border-radius:20px 20px 0 0;position:sticky;top:0;z-index:1;">
-    <button onclick="closeModal()" style="position:absolute;top:18px;right:18px;background:rgba(255,255,255,0.12);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;line-height:1;">✕</button>
+    <button onclick="closeModal()" aria-label="Close" style="position:absolute;top:18px;right:18px;background:rgba(255,255,255,0.12);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;line-height:1;">✕</button>
     <div style="font-size:0.75rem;letter-spacing:0.1em;font-weight:700;color:#17C3F0;text-transform:uppercase;margin-bottom:6px;">Join the Team</div>
-    <h2 style="font-family:'Sora',sans-serif;color:#fff;font-size:1.5rem;font-weight:800;margin:0;">Become a Tasker</h2>
+    <h2 style="font-family:'Sora',sans-serif;color:#fff;font-size:1.5rem;font-weight:800;margin:0;" id="modal-tasker-title">Become a Tasker</h2>
     <p style="color:rgba(255,255,255,0.5);font-size:0.88rem;margin-top:6px;">Fill in your info and we'll reach out when a task matches your skills.</p>
   </div>
   <form id="form-tasker" onsubmit="submitTasker(event)" style="padding:28px 32px;">
@@ -1008,11 +1008,11 @@
 </div>
 
 <!-- HIRE A TASKER MODAL -->
-<div id="modal-customer" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1000;width:min(580px,95vw);max-height:90vh;overflow-y:auto;background:#fff;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,0.25);">
+<div id="modal-customer" role="dialog" aria-modal="true" aria-labelledby="modal-customer-title" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1000;width:min(580px,95vw);max-height:90vh;overflow-y:auto;background:#fff;border-radius:20px;box-shadow:0 24px 80px rgba(0,0,0,0.25);">
   <div style="background:#0d1b2a;padding:28px 32px 22px;border-radius:20px 20px 0 0;position:sticky;top:0;z-index:1;">
-    <button onclick="closeModal()" style="position:absolute;top:18px;right:18px;background:rgba(255,255,255,0.12);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;line-height:1;">✕</button>
+    <button onclick="closeModal()" aria-label="Close" style="position:absolute;top:18px;right:18px;background:rgba(255,255,255,0.12);border:none;color:#fff;width:34px;height:34px;border-radius:50%;cursor:pointer;font-size:1rem;line-height:1;">✕</button>
     <div style="font-size:0.75rem;letter-spacing:0.1em;font-weight:700;color:#17C3F0;text-transform:uppercase;margin-bottom:6px;">Get Help Today</div>
-    <h2 style="font-family:'Sora',sans-serif;color:#fff;font-size:1.5rem;font-weight:800;margin:0;">Hire a Tasker</h2>
+    <h2 style="font-family:'Sora',sans-serif;color:#fff;font-size:1.5rem;font-weight:800;margin:0;" id="modal-customer-title">Hire a Tasker</h2>
     <p style="color:rgba(255,255,255,0.5);font-size:0.88rem;margin-top:6px;">Tell us what you need and we'll match you with the perfect local Tasker. All customers are reviewed before being matched.</p>
   </div>
   <form id="form-customer" onsubmit="submitCustomer(event)" style="padding:28px 32px;">

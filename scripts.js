@@ -17,12 +17,40 @@ document.addEventListener('DOMContentLoaded', function() {
 const WORKER_TASKER = "https://jjh-tasker-form.juniorjobhunt.workers.dev";
 const WORKER_CUSTOMER = "https://jjh-customer-form.juniorjobhunt.workers.dev";
 
+// --- Accessibility: dialog focus management (focus on open, restore on close, trap Tab) ---
+var _lastFocused = null;
+var _activeDialog = null;
+function _focusables(c) {
+  return Array.prototype.slice.call(c.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])')).filter(function(el) { return el.offsetParent !== null; });
+}
+function dialogOpened(container) {
+  if (!container) return;
+  _activeDialog = container;
+  _lastFocused = document.activeElement;
+  var pref = container.querySelector('input:not([disabled]), textarea, select') || _focusables(container)[0];
+  if (pref) setTimeout(function() { pref.focus(); }, 50);
+}
+function dialogClosed() {
+  _activeDialog = null;
+  if (_lastFocused && _lastFocused.focus) { try { _lastFocused.focus(); } catch (e) {} }
+  _lastFocused = null;
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Tab' || !_activeDialog) return;
+  var f = _focusables(_activeDialog);
+  if (!f.length) return;
+  var first = f[0], last = f[f.length - 1];
+  if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+  else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+});
+
 // --- Modal Controls ---
 function openModal(type) {
   document.getElementById('modal-overlay').style.display = 'block';
   document.getElementById('modal-tasker').style.display = (type === 'tasker') ? 'block' : 'none';
   document.getElementById('modal-customer').style.display = (type === 'customer') ? 'block' : 'none';
   document.body.style.overflow = 'hidden';
+  dialogOpened(document.getElementById('modal-' + type));
 }
 
 function closeModal() {
@@ -30,6 +58,7 @@ function closeModal() {
   document.getElementById('modal-tasker').style.display = 'none';
   document.getElementById('modal-customer').style.display = 'none';
   document.body.style.overflow = '';
+  dialogClosed();
 }
 
 document.addEventListener('keydown', function(e) {
@@ -182,11 +211,13 @@ function openWaitlist() {
   document.getElementById('wlSuccess').style.display = 'none';
   document.getElementById('wlError').classList.remove('show');
   document.getElementById('wlForm').reset();
+  dialogOpened(document.querySelector('#wlOverlay .wl-modal'));
 }
 
 function closeWaitlist() {
   document.getElementById('wlOverlay').classList.remove('open');
   document.body.style.overflow = '';
+  dialogClosed();
 }
 
 function closeWaitlistOnBackdrop(e) {
