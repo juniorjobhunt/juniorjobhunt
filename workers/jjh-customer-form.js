@@ -74,6 +74,19 @@ export default {
         `
       });
 
+      // Acknowledge the customer so they aren't left hanging while we recruit a tasker
+      await sendEmail(env, {
+        to: cf['Email'],
+        subject: 'We got your request — JuniorJobHunt',
+        html: `
+          <h2>Thanks for your request!</h2>
+          <p>We don't have an available tasker in <strong>${city}</strong> just yet, but we're on it — we'll reach out as soon as we find someone who can help with your task.</p>
+          <p><strong>Your request:</strong> ${fmt(cf['Task Category'])}</p>
+          <p>Questions? Just reply to this email.</p>
+          <p>— The JuniorJobHunt Team</p>
+        `
+      });
+
       await updateRecord(env, 'Customers', customerId, { 'Status': 'No Match' });
 
       return new Response(JSON.stringify({ success: true, matched: false }), {
