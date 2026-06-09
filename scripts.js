@@ -114,7 +114,8 @@ async function submitTasker(e) {
     "Availability": avail,
     "Short Bio": fd.get('Short Bio') || '',
     "Status": "New",
-    "Date Submitted": new Date().toISOString().split('T')[0]
+    "Date Submitted": new Date().toISOString().split('T')[0],
+    "Consented At": (form.querySelector('input[name="consent"]') || {}).checked ? new Date().toISOString() : ''
   };
   try {
     var res = await fetch(WORKER_TASKER, {
@@ -161,7 +162,8 @@ async function submitCustomer(e) {
     "Preferred Date": fd.get('Preferred Date') || '',
     "Urgency": fd.get('Urgency'),
     "Status": "New",
-    "Date Submitted": new Date().toISOString().split('T')[0]
+    "Date Submitted": new Date().toISOString().split('T')[0],
+    "Consented At": (form.querySelector('input[name="consent"]') || {}).checked ? new Date().toISOString() : ''
   };
   try {
     var res = await fetch(WORKER_CUSTOMER, {
@@ -245,6 +247,7 @@ async function submitWaitlist(e) {
     city:     document.getElementById('wlCity').value,
     website:  document.querySelector('[name="website"]').value,
     address:  document.querySelector('[name="address"]').value,
+    consentedAt: (document.querySelector('#wlForm input[name="consent"]') || {}).checked ? new Date().toISOString() : '',
   };
 
   try {

@@ -88,6 +88,7 @@ export default {
           'Email': normalizedEmail,
           'Phone': normalizedPhone,
           'City': normalizedCity,
+          'Consented At': (typeof body.consentedAt === 'string' ? body.consentedAt : ''),
         }
       }),
     });
