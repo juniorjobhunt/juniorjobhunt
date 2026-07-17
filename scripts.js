@@ -261,6 +261,7 @@ async function submitWaitlist(e) {
       document.getElementById('wlFormView').style.display = 'none';
       document.getElementById('wlSuccess').style.display = '';
       dismissBanner();
+      try { localStorage.setItem('wl_joined', '1'); } catch(e) {}
     } else {
       errEl.textContent = data.error || 'Something went wrong. Please try again.';
       errEl.classList.add('show');
@@ -284,3 +285,21 @@ async function submitWaitlist(e) {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeWaitlist();
 });
+
+// ── WAITLIST AUTO-POPUP ──
+// Opens the waitlist modal shortly after page load, then again every 60s.
+// Skips visitors who already joined, and never interrupts an open dialog
+// (tasker/customer forms, or the waitlist modal itself) or a hidden tab.
+(function() {
+  if (!document.getElementById('wlOverlay')) return;
+  function alreadyJoined() {
+    try { return !!localStorage.getItem('wl_joined'); } catch(e) { return false; }
+  }
+  if (alreadyJoined()) return;
+  function autoOpenWaitlist() {
+    if (alreadyJoined() || _activeDialog || document.hidden) return;
+    openWaitlist();
+  }
+  setTimeout(autoOpenWaitlist, 2000);
+  setInterval(autoOpenWaitlist, 60000);
+})();
