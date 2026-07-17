@@ -121,7 +121,11 @@ async function submitTasker(e) {
     var res = await fetch(WORKER_TASKER, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fields: fields })
+      body: JSON.stringify({
+        fields: fields,
+        website: (form.querySelector('[name="website"]') || {}).value || '',
+        address: (form.querySelector('[name="address"]') || {}).value || ''
+      })
     });
     var result = await res.json();
     if (res.ok) {
@@ -169,7 +173,11 @@ async function submitCustomer(e) {
     var res = await fetch(WORKER_CUSTOMER, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fields: fields })
+      body: JSON.stringify({
+        fields: fields,
+        website: (form.querySelector('[name="website"]') || {}).value || '',
+        address: (form.querySelector('[name="address"]') || {}).value || ''
+      })
     });
     var result = await res.json();
     if (res.ok) {

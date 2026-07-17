@@ -967,7 +967,7 @@
 </footer>
 
 
-<script src="scripts.js?v=3" defer></script>
+<script src="scripts.js?v=4" defer></script>
 
 <!-- MODAL OVERLAY -->
 <div id="modal-overlay" onclick="closeModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;backdrop-filter:blur(4px);transition:opacity 0.2s;"></div>
@@ -981,6 +981,10 @@
     <p style="color:rgba(255,255,255,0.5);font-size:0.88rem;margin-top:6px;">Fill in your info and we'll reach out when a task matches your skills.</p>
   </div>
   <form id="form-tasker" onsubmit="submitTasker(event)" style="padding:28px 32px;">
+    <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;">
+      <input type="text" name="website" tabindex="-1" autocomplete="off">
+      <input type="text" name="address" tabindex="-1" autocomplete="off">
+    </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
       <div style="display:flex;flex-direction:column;gap:5px;">
         <label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Full Name *</label>
@@ -1047,6 +1051,10 @@
     <p style="color:rgba(255,255,255,0.5);font-size:0.88rem;margin-top:6px;">Tell us what you need and we'll match you with the perfect local Tasker.</p>
   </div>
   <form id="form-customer" onsubmit="submitCustomer(event)" style="padding:28px 32px;">
+    <div aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;">
+      <input type="text" name="website" tabindex="-1" autocomplete="off">
+      <input type="text" name="address" tabindex="-1" autocomplete="off">
+    </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
       <div style="display:flex;flex-direction:column;gap:5px;">
         <label style="font-size:0.79rem;font-weight:700;color:#0d1b2a;">Full Name *</label>
