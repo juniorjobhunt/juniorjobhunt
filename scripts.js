@@ -123,8 +123,8 @@ async function submitTasker(e) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         fields: fields,
-        website: (form.querySelector('[name="website"]') || {}).value || '',
-        address: (form.querySelector('[name="address"]') || {}).value || ''
+        website: (form.querySelector('[name="jjh_hp_1"]') || {}).value || '',
+        address: (form.querySelector('[name="jjh_hp_2"]') || {}).value || ''
       })
     });
     var result = await res.json();
@@ -175,13 +175,15 @@ async function submitCustomer(e) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         fields: fields,
-        website: (form.querySelector('[name="website"]') || {}).value || '',
-        address: (form.querySelector('[name="address"]') || {}).value || ''
+        website: (form.querySelector('[name="jjh_hp_1"]') || {}).value || '',
+        address: (form.querySelector('[name="jjh_hp_2"]') || {}).value || ''
       })
     });
     var result = await res.json();
     if (res.ok) {
-      showMsg('msg-customer', '✅ Request received! We\'ll match you with a Tasker shortly.', true);
+      showMsg('msg-customer', (result && result.matched === false)
+        ? '✅ Request received! We don\'t have a Tasker in your area just yet — we\'ve emailed you a confirmation and will reach out as soon as we find someone.'
+        : '✅ Request received! Check your email — we\'ve sent you your Tasker\'s contact info.', true);
       form.reset();
       document.querySelectorAll('#c-tasks span').forEach(function(el) {
         el.setAttribute('data-active', '0');
@@ -253,8 +255,8 @@ async function submitWaitlist(e) {
     email:    document.getElementById('wlEmail').value,
     phone:    document.getElementById('wlPhone').value,
     city:     document.getElementById('wlCity').value,
-    website:  document.querySelector('[name="website"]').value,
-    address:  document.querySelector('[name="address"]').value,
+    website:  (document.querySelector('#wlForm [name="jjh_hp_1"]') || {}).value || '',
+    address:  (document.querySelector('#wlForm [name="jjh_hp_2"]') || {}).value || '',
     consentedAt: (document.querySelector('#wlForm input[name="consent"]') || {}).checked ? new Date().toISOString() : '',
   };
 

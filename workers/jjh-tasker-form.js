@@ -2,11 +2,18 @@
 // Hardened: origin-locked CORS, method + body-size guards, KV rate limiting,
 // honeypot, strict validation, and a server-built field allowlist (the client
 // cannot set arbitrary Airtable fields or a privileged Status).
+// Sept 27, 2026: per-IP + per-email rate limits (schools share one IP), Pacific
+// "Date Submitted", minimal response body, and admin alert if Airtable fails.
 
 const ALLOWED_ORIGINS = ['https://juniorjobhunt.com', 'https://www.juniorjobhunt.com'];
 const MAX_BODY_BYTES = 20000;
-const RL_MAX = 5;            // submissions per IP per day
+const RL_IP_MAX = 30;        // submissions per IP per day
+const RL_EMAIL_MAX = 3;      // submissions per email per day
 const RL_TTL = 86400;
+const TZ = 'America/Los_Angeles';
+const FROM_ALERTS = 'JJH Alerts <alerts@juniorjobhunt.com>';
+const ADMIN_TO = 'juniorjobhunt@gmail.com';
+const WORKER = 'jjh-tasker-form';
 
 export default {
   async fetch(request, env) {
@@ -32,12 +39,10 @@ export default {
     const raw = await request.text();
     if (raw.length > MAX_BODY_BYTES) return fail('Request too large.', 413);
 
-    // Rate limit (5 / IP / day)
+    // Rate limit per IP
     const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
-    const rlKey = `rlt:${ip}:${new Date().toISOString().split('T')[0]}`;
-    const count = parseInt((await env.RATE_LIMIT.get(rlKey)) || '0', 10);
-    if (count >= RL_MAX) return fail('Too many submissions. Please try again tomorrow.', 429);
-    await env.RATE_LIMIT.put(rlKey, String(count + 1), { expirationTtl: RL_TTL });
+    const day = new Date().toISOString().split('T')[0];
+    if (!(await rateOk(env, `rlt:${ip}:${day}`, RL_IP_MAX))) return fail('Too many submissions. Please try again tomorrow.', 429);
 
     // Parse
     let body;
@@ -51,7 +56,7 @@ export default {
     const name  = str(f['Full Name']);
     const email = str(f['Email']).toLowerCase();
     const phone = str(f['Phone Number']);
-    const city  = titleCase(str(f['Neighborhood/City']));
+    const city  = normCity(f['Neighborhood/City']);
     const school = str(f['School Name']);
     const age = Number.parseInt(f['Age'], 10);
     const skills = strArray(f['Skills']);
@@ -68,6 +73,9 @@ export default {
     if (!avail.length) errors.push('Please select your availability.');
     if (errors.length) return fail(errors.join(' '));
 
+    // Rate limit per email
+    if (!(await rateOk(env, `rlte:${email}:${day}`, RL_EMAIL_MAX))) return fail('Too many submissions. Please try again tomorrow.', 429);
+
     // Build the record from an allowlist — client cannot inject fields or Status.
     const fields = {
       'Full Name': name,
@@ -80,7 +88,7 @@ export default {
       'Availability': avail,
       'Short Bio': str(f['Short Bio']).slice(0, 2000),
       'Status': 'New',
-      'Date Submitted': new Date().toISOString().split('T')[0],
+      'Date Submitted': localDay(),
       'Consented At': isoOrEmpty(f['Consented At']),
     };
 
@@ -103,20 +111,55 @@ export default {
     });
     const data = await res.json().catch(() => ({}));
     if (!res.ok) {
-      console.error('Airtable error:', JSON.stringify(data));
+      const detail = `Airtable ${res.status}: ${JSON.stringify(data).slice(0, 500)}`;
+      console.error('Tasker write failed:', detail);
+      await alertAdmin(env, 'Tasker form could not save a signup',
+        `A tasker signup failed to save — the applicant saw an error. ${esc(detail)}`,
+        { name, email, city });
       return fail('Something went wrong. Please try again.', 500);
     }
-    return json(data);
+    return json({ success: true });
   },
 };
+
+async function rateOk(env, key, max) {
+  const count = parseInt((await env.RATE_LIMIT.get(key)) || '0', 10);
+  if (count >= max) return false;
+  await env.RATE_LIMIT.put(key, String(count + 1), { expirationTtl: RL_TTL });
+  return true;
+}
+
+// One alert per subject per hour (KV-throttled).
+async function alertAdmin(env, subject, htmlDetail, ctx = {}) {
+  try {
+    const key = `alert:${WORKER}:${subject}:${new Date().toISOString().slice(0, 13)}`;
+    if (await env.RATE_LIMIT.get(key)) return;
+    await env.RATE_LIMIT.put(key, '1', { expirationTtl: 3600 });
+    const rows = Object.entries(ctx).map(([k, v]) => `<p><strong>${esc(k)}:</strong> ${esc(v)}</p>`).join('');
+    const res = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { 'Authorization': `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ from: FROM_ALERTS, to: [ADMIN_TO], subject: `🚨 JJH alert — ${subject}`,
+        html: `<h2>${esc(subject)}</h2><p>${htmlDetail}</p>${rows}<p style="color:#888">Worker: ${WORKER} · ${new Date().toISOString()}. Further alerts with this subject are paused for the rest of the hour.</p>` }),
+    });
+    if (!res.ok) console.error('alert send failed', res.status);
+  } catch (e) { console.error('alertAdmin failed', e && e.message); }
+}
 
 // ── helpers ──
 function str(v) { return (typeof v === 'string' ? v : (v == null ? '' : String(v))).trim(); }
 function digits(v) { return str(v).replace(/\D/g, ''); }
 function isEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && v.length <= 254; }
-// City normalizer: strip quotes/backslashes, collapse whitespace, title-case —
+// City normalizer: strip quotes/backslashes, collapse whitespace, trim, title-case —
 // keeps stored cities clean and makes exact-string matching robust.
-function titleCase(v) { return str(v).toLowerCase().replace(/[\\"]/g, '').replace(/\s+/g, ' ').replace(/\b\w/g, c => c.toUpperCase()); }
+function normCity(v) { return str(v).toLowerCase().replace(/[\\"]/g, '').replace(/\s+/g, ' ').trim().replace(/\b\w/g, c => c.toUpperCase()); }
+// Calendar date in Pacific time (YYYY-MM-DD).
+function localDay() { return new Intl.DateTimeFormat('en-CA', { timeZone: TZ, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); }
+function esc(v) {
+  return String(v == null ? '' : v)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+}
 function strArray(v) {
   if (!Array.isArray(v)) return [];
   return v.filter(x => typeof x === 'string').map(x => x.trim()).filter(Boolean).slice(0, 30).map(x => x.slice(0, 100));
