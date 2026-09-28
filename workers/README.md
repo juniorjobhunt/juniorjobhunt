@@ -13,23 +13,18 @@ and the Worker talks to Airtable/Resend using secrets stored as **Cloudflare bin
 
 | File | Deployed URL | Purpose |
 |------|--------------|---------|
-| `jjh-tasker-form.js` | `https://jjh-tasker-form.juniorjobhunt.workers.dev` | Tasker signup → normalizes city → writes to Airtable **Taskers** |
-| `jjh-customer-form.js` | `https://jjh-customer-form.juniorjobhunt.workers.dev` | Customer request → writes to **Customers** → runs city matching → sends 3 emails via Resend → sets both records to "Matched" → logs to **Matches** |
-| `jjh-waitlist-form.js` | `https://jjh-waitlist-form.juniorjobhunt.workers.dev` | Waitlist signup → validate + honeypot + KV rate-limit (5/IP/day) → writes to **Waitlist** |
+| `jjh-tasker-form.js` | `https://api.juniorjobhunt.com/tasker` | Tasker signup → normalizes city → writes to Airtable **Taskers** |
+| `jjh-customer-form.js` | `https://api.juniorjobhunt.com/customer` | Customer request → writes to **Customers** → runs city matching → sends 3 emails via Resend → sets both records to "Matched" → logs to **Matches** |
+| `jjh-waitlist-form.js` | `https://api.juniorjobhunt.com/waitlist` | Waitlist signup → validate + honeypot + KV rate-limit (5/IP/day) → writes to **Waitlist** |
 
 ## Bindings (set in Cloudflare, NOT in this repo)
 
-| Worker | Bindings |
-|--------|----------|
-| `jjh-tasker-form` | `AT_BASE`, `AT_TOKEN` |
-| `jjh-customer-form` | `AT_BASE`, `AT_TOKEN`, `RESEND_API_KEY` |
-| `jjh-waitlist-form` | `AT_BASE`, `AT_TOKEN`, `RATE_LIMIT` (KV namespace) |
+All three Workers bind: `AT_BASE` (plain text), `AT_TOKEN` (secret), `RESEND_API_KEY` (secret, sending-only key), `RATE_LIMIT` (KV namespace). Workers Logs (observability) is enabled.
 
-- `AT_TOKEN` / `RESEND_API_KEY` are secrets — keep them only as Cloudflare bindings.
-- ⚠️ Deploying a Worker via the API **replaces ALL bindings** — always send the full
-  binding set in the deploy metadata, or they get wiped.
-- ⚠️ After regenerating any Airtable/Resend token, **re-deploy every Worker** that uses
-  it (the old secret stays bound until you do).
+- Secrets live only as Cloudflare bindings and in the owner's password manager.
+- ⚠️ Deploying a Worker via the API **replaces ALL bindings** — always send the full binding set.
+- ⚠️ After regenerating any Airtable/Resend token, **re-deploy every Worker** that uses it.
+- Run `node workers/test/offline.test.mjs` before every deploy.
 
 ## Deploying
 

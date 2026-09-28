@@ -14,8 +14,9 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // --- Worker URLs (token is stored securely in Cloudflare, not here) ---
-const WORKER_TASKER = "https://jjh-tasker-form.juniorjobhunt.workers.dev";
-const WORKER_CUSTOMER = "https://jjh-customer-form.juniorjobhunt.workers.dev";
+// Served via Cloudflare routes on api.juniorjobhunt.com (workers.dev URLs disabled Sept 28, 2026).
+const WORKER_TASKER = "https://api.juniorjobhunt.com/tasker";
+const WORKER_CUSTOMER = "https://api.juniorjobhunt.com/customer";
 
 // --- Accessibility: dialog focus management (focus on open, restore on close, trap Tab) ---
 var _lastFocused = null;
@@ -214,7 +215,7 @@ function openModalWithCategory(category) {
 }
 
 // ── WAITLIST ──
-const WAITLIST_WORKER = 'https://jjh-waitlist-form.juniorjobhunt.workers.dev';
+const WAITLIST_WORKER = 'https://api.juniorjobhunt.com/waitlist';
 
 function openWaitlist() {
   document.getElementById('wlOverlay').classList.add('open');
